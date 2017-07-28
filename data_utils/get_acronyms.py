@@ -1,10 +1,21 @@
+import os
+
 from bs4 import BeautifulSoup
 import requests
 import json
 from config import *
 
 DATA_FILE_PATH = "../" + DATA_FILE_PATH
+META_FILE_PATH = "../" + META_FILE_PATH
 MAIN_URL = "https://en.wikipedia.org/wiki/List_of_computing_and_IT_abbreviations"
+
+
+def save_json(obj, i):
+    with open(META_FILE_PATH, mode="w", encoding="utf-8") as file:
+        json.dump({"last_key": i}, file)
+
+    with open(DATA_FILE_PATH, mode="w", encoding="utf-8") as file:
+        json.dump(obj, file)
 
 
 def get_doc(url):
@@ -29,17 +40,25 @@ def get_doc(url):
         text.append(str(p.text))
     return " ".join(text)
 
-
 # to store all the acronyms
-acronyms = dict()
+if os.path.exists(DATA_FILE_PATH):
+    acronyms = json.load(open(DATA_FILE_PATH, "r", encoding="utf-8"))
+else:
+    acronyms = dict()
+
+if os.path.exists(META_FILE_PATH):
+    meta = json.load(open(META_FILE_PATH, "r", encoding="utf-8"))
+    i = meta["last_key"] + 1
+else:
+    i = 0
 
 r = requests.get(MAIN_URL)
 bs = BeautifulSoup(markup=r.text, features="lxml")
 
 all_li = bs.find_all("li")
 print("Total Acronyms: %s" % len(all_li))
-i = 1
-for li in all_li:
+print("Continuing where left...") if i > 1 else 0
+for li in all_li[i:]:
     txt = str(li.text)
     if "—" in txt:
         try:
@@ -49,8 +68,10 @@ for li in all_li:
         tmp = txt.split("—")
         abbr = tmp[0]
         full_form = tmp[1]
-        content = get_doc(link)
-
+        try:
+            content = get_doc(link)
+        except Exception:
+            save_json(acronyms, i)
         acronyms[abbr] = dict()
         acronyms[abbr]["link"] = link
         acronyms[abbr]["full_form"] = full_form
@@ -59,5 +80,4 @@ for li in all_li:
         i += 1
 
 print(acronyms)
-with open(DATA_FILE_PATH, mode="w", encoding="utf-8") as file:
-    json.dump(acronyms, file)
+save_json(acronyms, i)
