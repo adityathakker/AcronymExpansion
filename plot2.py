@@ -21,7 +21,7 @@ reduced= pca.transform(doc_vecs)
 print "check 4"
 for index,vec in enumerate(reduced):
     print ('%s %s'%(doc_labels[index],vec))
-    if index <100:
+    if index <1400:
 
         x,y=vec[0],vec[1]
         plt.scatter(x,y)

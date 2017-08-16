@@ -1,0 +1,9 @@
+C Compiler 
+[(u'GNU Compiler Collection', 0.9893515110015869), (u'GNU Assembler', 0.8577405214309692), (u'Watcom ASseMbler', 0.8563928604125977), (u'GNU Compiler for Java', 0.8524852991104126), (u'Flat ASseMbler', 0.842501699924469), (u'Intel Binary Compatibility Standard', 0.8297665119171143), (u'Amsterdam Compiler Kit', 0.8227226734161377), (u'Common Language Runtime', 0.8088024854660034), (u'JavaScript', 0.7950826287269592), (u'Yet Another Compiler Compiler', 0.7950115203857422)]
+
+
+Border Gateway Protocol
+[(u'Open Shortest Path First', 0.8998309969902039), (u'Routing Information Protocol', 0.8890818357467651), (u'Interior Gateway Routing Protocol', 0.8810895681381226), (u'Maximum Transmission Unit', 0.8365482091903687), (u'Network Address Translation', 0.8308086395263672), (u'Enhanced Interior Gateway Routing Protocol', 0.8276811838150024), (u'Classless Inter-Domain Routing', 0.8090013265609741), (u'Variable Length Subnet Mask', 0.807381808757782), (u'Metropolitan Area Network', 0.8053773641586304), (u'Intermediate System to Intermediate System', 0.7944767475128174)]
+
+Intel 80386 processor
+[(u'PowerPC', 0.9095242023468018), (u'Intel 80486 processor', 0.9087609648704529), (u'Backside Bus', 0.885269820690155), (u'Microprocessor Unit', 0.8707886338233948), (u'Floating Point Unit', 0.8419257402420044), (u'Intel 80286 processor', 0.841597318649292), (u'Virtual Address eXtension', 0.8179429173469543), (u'Front Side Bus', 0.8120190501213074), (u'Reduced Instruction Set Computer', 0.8114797472953796), (u'Extended Industry Standard Architecture', 0.7956191897392273)]
