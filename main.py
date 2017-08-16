@@ -34,7 +34,6 @@ def get_list():
 
         length_tokens = [i for i in stemmed_tokens if len(i) > 1]
         texts.append(length_tokens)
-        print full_form_list[index]+"\n"
         td = TaggedDocument(' '.join(stemmed_tokens).split(),[full_form_list[index]])
 
         taggeddoc.append(td)
