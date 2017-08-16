@@ -7,3 +7,12 @@ Border Gateway Protocol
 
 Intel 80386 processor
 [(u'PowerPC', 0.9095242023468018), (u'Intel 80486 processor', 0.9087609648704529), (u'Backside Bus', 0.885269820690155), (u'Microprocessor Unit', 0.8707886338233948), (u'Floating Point Unit', 0.8419257402420044), (u'Intel 80286 processor', 0.841597318649292), (u'Virtual Address eXtension', 0.8179429173469543), (u'Front Side Bus', 0.8120190501213074), (u'Reduced Instruction Set Computer', 0.8114797472953796), (u'Extended Industry Standard Architecture', 0.7956191897392273)]
+
+Computational Fluid Dynamics (Very unrelated to other terms in dataset. Low Cosine Similarity values)
+[(u'Axis Aligned Bounding Box', 0.8286604285240173), (u'Near-End CrossTalk', 0.7750265002250671), (u'Liquid Crystal On Silicon', 0.7693880796432495), (u'Computerized Tomography', 0.7685096263885498), (u'Model-Based Design', 0.7667067050933838), (u'Computer Numerical Control', 0.7487605214118958), (u'Computer Graphics', 0.7477431893348694), (u'Computer-Aided Manufacturing', 0.744827151298523), (u'Computer-Aided Engineering', 0.7444424629211426), (u'Computer-Generated Imagery', 0.7396420240402222)]
+
+Database Management System
+[(u'Database', 0.9929624199867249), (u'Object-Relational Mapping', 0.8905169367790222), (u'Online Transaction Processing', 0.889797568321228), (u'Extract, Transform, Load', 0.8880813717842102), (u'Data Control Language', 0.8765418529510498), (u'Persistent Object Identifier', 0.8669875860214233), (u'Configuration Management Database', 0.865766704082489), (u'Data Warehouse', 0.8469990491867065), (u'Indexed Sequential Access Method', 0.8266834020614624), (u'Data Definition Language', 0.8258695602416992)]
+
+Cryptography Next Generation
+[(u'Wi-Fi Protected Access', 0.8499626517295837), (u'Elliptic Curve Cryptography', 0.8397155404090881), (u'Extensible Authentication Protocol', 0.8342695236206055), (u'Trusted Platform Module', 0.8088679313659668), (u'NT Lan Manager', 0.8033000826835632), (u'Wired Equivalent Privacy', 0.7972392439842224), (u'Secure Hash Algorithm', 0.7903599739074707), (u'Internet Key Exchange', 0.7865740656852722), (u'Rivest Shamir Adleman', 0.7850842475891113), (u' Java Cryptography Extension', 0.7791743278503418)]
