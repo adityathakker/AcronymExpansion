@@ -51,7 +51,6 @@ def get_acronyms(query):
     query = query.lower()
 
     results = wikipedia.search(query=query, results=30)
-    print(results)
     if len(results) <= 0:
         raise Exception
 
