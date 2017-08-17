@@ -64,7 +64,7 @@ def get_acronyms(query):
 
     return acronyms
 
-get_acronyms("CNN")
+print(get_acronyms("CNN"))
 
 
 def findBestLongForm(shortForm, longForm):
