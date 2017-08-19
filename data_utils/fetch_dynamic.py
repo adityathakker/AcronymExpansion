@@ -50,7 +50,8 @@ def get_acronyms(query):
     acronyms = list()
     query = query.lower()
 
-    results = wikipedia.search(query=query, results=30)
+    results = wikipedia.search(query=query, results=10)
+    print(results)
     if len(results) <= 0:
         raise Exception
 
@@ -62,8 +63,6 @@ def get_acronyms(query):
             acronyms.append((item, summary))
 
     return acronyms
-
-print(get_acronyms("CNN"))
 
 
 def findBestLongForm(shortForm, longForm):
@@ -96,3 +95,9 @@ def findBestLongForm(shortForm, longForm):
     return longForm[:spIndex]
 
 
+acronyms = json.load(open(DATA_FILE_PATH, mode="r"))
+print("Existing File Loaded...")
+for item in acronyms:
+    print("Acronyms for %s" % item)
+    print(get_acronyms(item))
+    print()
