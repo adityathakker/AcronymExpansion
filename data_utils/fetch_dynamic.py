@@ -41,8 +41,7 @@ def get_pages(query):
 def find_full_form(abbr, para):
     re_string = ""
     for c in abbr:
-        re_string = re_string + c + "\w* "
-
+        re_string = re_string + c + "\w+ "
     return re.findall(re_string, para)
 
 
@@ -56,11 +55,18 @@ def get_acronyms(query):
         raise Exception
 
     for each_result in results:
-        summary = str(wikipedia.summary(each_result)).lower()
+        try:
+            summary = str(wikipedia.summary(each_result)).lower()
+        except Exception:
+            continue
         full_forms = find_full_form(query, summary)
 
         for item in full_forms:
-            acronyms.append((item, summary))
+            print(item)
+            possible_full_form = dict()
+            possible_full_form["full_form"] = item.strip()
+            possible_full_form["summary"] = summary
+            acronyms.append(possible_full_form)
 
     return acronyms
 
@@ -97,7 +103,13 @@ def findBestLongForm(shortForm, longForm):
 
 acronyms = json.load(open(DATA_FILE_PATH, mode="r"))
 print("Existing File Loaded...")
+print("Total Acronyms: %s" % len(acronyms))
+i = 1
 for item in acronyms:
     print("Acronyms for %s" % item)
-    print(get_acronyms(item))
+    possibilities = get_acronyms(item)
+    acronyms[item]["possibilities"] = possibilities
+    print(possibilities)
+    print("%s More to go" % (len(acronyms) - i))
+    i += 1
     print()
