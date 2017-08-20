@@ -63,12 +63,19 @@ def get_pages(query):
 
 
 def find_full_form(abbr, para):
-    re_string = "\b"
+    re_string = "\\b"
     for c in abbr:
         re_string = re_string + c + "\w+[ _-]"
     re_string = re_string[:len(re_string)-1-4]
-    print(re_string)
+    # print(re_string)
     return re.findall(re_string, para)
+
+
+def check_already_exists(ls, i):
+    for x in ls:
+        if len(set(x.items()) & set(i.items())) == 2:
+            return True
+    return False
 
 
 def get_acronyms(query):
@@ -93,7 +100,7 @@ def get_acronyms(query):
                 if a is None:
                     continue
                 url = "https://en.wikipedia.org" + a["href"]
-                content = get_doc(url)
+                content = str(get_doc(url)).lower()
                 full_forms = find_full_form(query, content)
 
                 for item in full_forms:
@@ -101,7 +108,10 @@ def get_acronyms(query):
                     possible_full_form = dict()
                     possible_full_form["full_form"] = item.strip()
                     possible_full_form["summary"] = content
-                    acronyms.append(possible_full_form)
+                    if not check_already_exists(acronyms, possible_full_form):
+                        acronyms.append(possible_full_form)
+                    else:
+                        print("Already Exists")
     if True:
         print("No Disambiguation Page Found. Normally Searching...")
         results = wikipedia.search(query=query, results=10)
@@ -121,7 +131,10 @@ def get_acronyms(query):
                 possible_full_form = dict()
                 possible_full_form["full_form"] = item.strip()
                 possible_full_form["summary"] = summary
-                acronyms.append(possible_full_form)
+                if not check_already_exists(acronyms, possible_full_form):
+                    acronyms.append(possible_full_form)
+                else:
+                    print("Already Existss")
 
     return acronyms
 
@@ -157,9 +170,9 @@ def findBestLongForm(shortForm, longForm):
 
 
 
-print(get_acronyms("FDS"))
+# print(get_acronyms("FDS"))
 
-
+new_acronyms = dict()
 acronyms = json.load(open(DATA_FILE_PATH, mode="r"))
 print("Existing File Loaded...")
 print("Total Acronyms: %s" % len(acronyms))
@@ -173,9 +186,11 @@ for item in acronyms:
         continue
 
     acronyms[item]["possibilities"] = possibilities
-    print(possibilities)
+    # print(possibilities)
     print("%s More to go" % (len(acronyms) - i))
     i += 1
-    print("\n\n")
-
-json.dump(acronyms, open("../data/new_acronyms.json", "w"))
+    new_acronyms[item] = acronyms[item]
+    print("------------------------------------------------------------")
+    if i > 50:
+        break
+json.dump(new_acronyms, open("../data/new_acronyms.json", "w"))
