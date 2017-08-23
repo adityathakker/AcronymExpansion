@@ -1,0 +1,12 @@
+WDM :
+Wavelength
+In 2002 the ITU standardized a channel spacing grid for use with CWDM (ITU-T G.694.2), using the wavelengths from 1270 nm through 1610 nm with a channel spacing of 20 nm. (G.694.2 was revised in 2003 to shift the actual channel centers by 1 nm, so that strictly speaking the center wavelengths are 1271 to 1611 nm).[1] Many CWDM wavelengths below 1470 nm are considered "unusable" on older G.652 specification fibers, due to the increased attenuation in the 1270–1470 nm bands. Newer fibers which conform to the G.652.C and G.652.D[2] standards, such as Corning SMF-28e and Samsung Widepass nearly eliminate the "water peak" attenuation peak and allow for full operation of all 18 ITU CWDM channels in metropolitan networks.
+
+(u'wavelength division multiplexing', 0.9841141700744629), (u'wavelength-division multiplexing', 0.9807391166687012), (u'wave division multiplexing', 0.9804555177688599), (u'warm dense matter', 0.9058713912963867), (u'wings display manager', 0.8135761022567749), (u'world dance music', 0.7154945731163025), (u'warm dark matter', 0.6510758996009827), (u'windows driver model', 0.5386772155761719), (u'wdm driver model', 0.5338577032089233), (u'win32 driver model', 0.5236344337463379)]
+
+Wavelength
+
+The use of WDM can multiply the effective bandwidth of a fiber optic communications system by a large factor, but its cost must be weighed against the alternative of using multiple fibers bundled into a cable. A fiber optic repeater device called the erbium amplifier can make WDM a cost-effective long-term solution.
+
+[(u'wave division multiplexing', 0.9506472945213318), (u'wavelength division multiplexing', 0.9472290277481079), (u'wavelength-division multiplexing', 0.9375934600830078), (u'wings display manager', 0.9148188829421997), (u'warm dense matter', 0.9113811254501343), (u'world dance music', 0.8763983845710754), (u'warm dark matter', 0.7181751132011414), (u'win32 driver model', 0.6965008974075317), (u'wdm driver model', 0.6923152208328247), (u'windows driver model', 0.6802462339401245)]
+
