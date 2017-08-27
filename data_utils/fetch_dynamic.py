@@ -3,36 +3,35 @@ import wikipedia
 from bs4 import BeautifulSoup
 import requests
 import json
-# from config import *
 import re
-# from get_acronyms import *
 
 DATA_FILE_PATH = "../" + "data/acronyms.json"
-#META_FILE_PATH = "../" + META_FILE_PATH
 SEARCH_URL = "https://en.wikipedia.org/w/index.php?title=Special:Search&go=Go&search="
 DISAMBIGUATION_URL = "https://en.wikipedia.org/wiki/%s_(disambiguation)"
 
+
 def get_doc(url):
-    text = list()
+    text_all = list()
     if url == "":
-        #print(url)
+        # print(url)
         return ""
     response = requests.get(url)
     soup = BeautifulSoup(markup=response.text, features="lxml")
     if soup is None:
-        #print(url)
+        # print(url)
         return ""
     content = soup.find(name="div", attrs={"class": "mw-parser-output"})
     if content is None:
-        #print(url)
+        # print(url)
         return ""
     list_p = content.findAll(name="p")
     if list_p is None:
-        #print(url)
+        # print(url)
         return ""
+
     for p in list_p:
-        text.append(str(p.text))
-    return " ".join(text)
+        text_all.append(str(p.text))
+    return " ".join(text_all)
 
 
 def get_pages(query):
@@ -66,7 +65,7 @@ def find_full_form(abbr, para):
     re_string = "\\b"
     for c in abbr:
         re_string = re_string + c + "\w+[ _-]"
-    re_string = re_string[:len(re_string)-1-4]
+    re_string = re_string[:len(re_string) - 1 - 4]
     # print(re_string)
     return re.findall(re_string, para)
 
@@ -107,67 +106,60 @@ def get_acronyms(query):
                     print("Item: %s" % item)
                     possible_full_form = dict()
                     possible_full_form["full_form"] = item.strip()
-                    possible_full_form["summary"] = content
+                    context_ix = content.find(item)
+                    if context_ix == -1:
+                        continue
+                    if (500 - context_ix) >= 0:
+                        start = 0
+                    else:
+                        start = context_ix - 500
+                    if (len(content) - context_ix) >= 500:
+                        end = context_ix + 500
+                    else:
+                        end = len(content) - context_ix
+                    possible_full_form["context"] = content[start:end]
+                    possible_full_form["source"] = content
+                    # print(possible_full_form)
                     if not check_already_exists(acronyms, possible_full_form):
                         acronyms.append(possible_full_form)
                     else:
                         print("Already Exists")
-    if True:
-        print("No Disambiguation Page Found. Normally Searching...")
-        results = wikipedia.search(query=query, results=10)
-        print(results)
-        if len(results) <= 0:
-            return None
 
-        for each_result in results:
-            try:
-                summary = str(wikipedia.summary(each_result)).lower()
-            except Exception:
+    results = wikipedia.search(query=query, results=10)
+    print(results)
+    if len(results) <= 0:
+        return None
+
+    for each_result in results:
+        try:
+            summary = str(wikipedia.summary(each_result)).lower()
+        except Exception:
+            continue
+        full_forms = find_full_form(query, summary)
+
+        for item in full_forms:
+            print("Item:: %s" % item)
+            possible_full_form = dict()
+            possible_full_form["full_form"] = item.strip()
+            context_ix = summary.find(item)
+            if context_ix == -1:
                 continue
-            full_forms = find_full_form(query, summary)
-
-            for item in full_forms:
-                print("Item:: %s" % item)
-                possible_full_form = dict()
-                possible_full_form["full_form"] = item.strip()
-                possible_full_form["summary"] = summary
-                if not check_already_exists(acronyms, possible_full_form):
-                    acronyms.append(possible_full_form)
-                else:
-                    print("Already Existss")
+            if (500 - context_ix) >= 0:
+                start = 0
+            else:
+                start = context_ix - 500
+            if (len(summary) - context_ix) >= 500:
+                end = context_ix + 500
+            else:
+                end = len(summary) - context_ix
+            possible_full_form["context"] = summary[start:end]
+            possible_full_form["source"] = summary
+            if not check_already_exists(acronyms, possible_full_form):
+                acronyms.append(possible_full_form)
+            else:
+                print("Already Exists")
 
     return acronyms
-
-
-def findBestLongForm(shortForm, longForm):
-    sIndex = len(shortForm) - 1
-    lIndex = len(longForm) - 1
-    while sIndex >= 0:
-        currChar = shortForm[sIndex].lower()
-        if not currChar.isalnum():
-            continue
-
-        while (
-                    ((lIndex >= 0) and (longForm[lIndex].lower() != currChar))
-                or
-                    ((sIndex == 0) and (lIndex > 0) and (longForm[lIndex - 1].isalnum()))):
-            lIndex -= 1
-
-        if lIndex < 0:
-            return None
-
-        lIndex -= 1
-        sIndex -= 1
-
-    spIndex = -1
-    for c in longForm[lIndex:]:
-        if c == " ":
-            spIndex = lIndex + 1
-
-        lIndex += 1
-
-    return longForm[:spIndex]
-
 
 
 # print(get_acronyms("FDS"))
@@ -179,7 +171,14 @@ print("Total Acronyms: %s" % len(acronyms))
 i = 1
 for item in acronyms:
     print("Acronyms for %s" % item)
-    possibilities = get_acronyms(item)
+    # get_acronyms(item)
+    try:
+        possibilities = get_acronyms(item)
+    except Exception as e:
+
+        print(e)
+        print("Exception Occurred")
+        continue
     if possibilities is None or len(possibilities) == 0:
         # del acronyms[item]
         print("No Possibilities :(")
@@ -191,6 +190,4 @@ for item in acronyms:
     i += 1
     new_acronyms[item] = acronyms[item]
     print("------------------------------------------------------------")
-    if i > 50:
-        break
 json.dump(new_acronyms, open("../data/new_acronyms.json", "w"))

@@ -14,7 +14,6 @@ for epoch in range(1):
     model.alpha -= 0.002
     model.min_alpha = model.alpha
 print("Done training")
-print (model['writ'])
 
-model.save('trained.model')
+model.save('trained_2.model')
 print("done saving")
