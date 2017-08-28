@@ -2,3 +2,6 @@ __pycache__
 data/biggest.json
 trained.model
 *.pyc
+.DS_STORE
+data/.DS_STORE
+data_utils/.DS_STORE

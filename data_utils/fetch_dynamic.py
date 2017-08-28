@@ -118,7 +118,7 @@ def get_acronyms(query):
                     else:
                         end = len(content) - context_ix
                     possible_full_form["context"] = content[start:end]
-                    possible_full_form["source"] = content
+                    possible_full_form["content"] = content
                     # print(possible_full_form)
                     if not check_already_exists(acronyms, possible_full_form):
                         acronyms.append(possible_full_form)
@@ -153,7 +153,7 @@ def get_acronyms(query):
             else:
                 end = len(summary) - context_ix
             possible_full_form["context"] = summary[start:end]
-            possible_full_form["source"] = summary
+            possible_full_form["content"] = summary
             if not check_already_exists(acronyms, possible_full_form):
                 acronyms.append(possible_full_form)
             else:
@@ -191,3 +191,5 @@ for item in acronyms:
     new_acronyms[item] = acronyms[item]
     print("------------------------------------------------------------")
 json.dump(new_acronyms, open("../data/new_acronyms.json", "w"))
+
+# todo: to make context for the main abbrs
