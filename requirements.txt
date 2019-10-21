@@ -8,7 +8,7 @@ functools32==3.2.3.post2
 gensim==2.3.0
 idna==2.6
 matplotlib==2.0.2
-nltk==3.2.4
+nltk==3.4.5
 numpy==1.13.1
 pyparsing==2.2.0
 python-dateutil==2.6.1
